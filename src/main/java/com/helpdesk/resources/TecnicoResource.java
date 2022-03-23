@@ -33,7 +33,7 @@ public class TecnicoResource {
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
 		Tecnico obj = tecnicoService.findById(id);
 		
-		return ResponseEntity.ok(new TecnicoDTO(obj));
+		return ResponseEntity.ok().body(new TecnicoDTO(obj));
 	}
 	
 	@GetMapping

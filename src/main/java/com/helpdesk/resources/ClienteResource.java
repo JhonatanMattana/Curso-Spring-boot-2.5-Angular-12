@@ -33,7 +33,7 @@ public class ClienteResource {
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id) {
 		Cliente obj = clienteService.findById(id);
 		
-		return ResponseEntity.ok(new ClienteDTO(obj));
+		return ResponseEntity.ok().body(new ClienteDTO(obj));
 	}
 	
 	@GetMapping
