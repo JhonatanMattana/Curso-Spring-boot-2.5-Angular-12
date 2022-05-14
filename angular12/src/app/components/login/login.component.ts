@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
 
   creds: Credenciais = {
@@ -34,6 +35,7 @@ export class LoginComponent implements OnInit {
       //this.toast.info(resposta.headers.get('Authorization'))
       this.service.successFullLogin(resposta.headers.get('Authorization').substring(7));
       this.router.navigate(['']);
+      this.toast.success('Logado com sucesso');
     }, () => {
       this.toast.error('Usuário e/ou senha inválidos');
     })
@@ -44,5 +46,4 @@ export class LoginComponent implements OnInit {
   validaCampos() : boolean {
     return this.email.valid && this.senha.valid;
   }
-
 }
