@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Tecnico } from 'src/app/models/tecnico';
 import { TecnicoService } from 'src/app/services/tecnico.service';
 
 @Component({
-  selector: 'app-tecnico-create',
-  templateUrl: './tecnico-create.component.html',
-  styleUrls: ['./tecnico-create.component.css']
+  selector: 'app-tecnico-update',
+  templateUrl: './tecnico-update.component.html',
+  styleUrls: ['./tecnico-update.component.css']
 })
-export class TecnicoCreateComponent implements OnInit {
+export class TecnicoUpdateComponent implements OnInit {
 
   nome: FormControl = new FormControl(null, Validators.minLength(3));
   cpf: FormControl = new FormControl(null, Validators.required);
@@ -29,15 +29,25 @@ export class TecnicoCreateComponent implements OnInit {
   constructor(
     private serviceTecnico: TecnicoService,
     private toast: ToastrService,
-    private router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+    this.tecnico.id = this.activeRoute.snapshot.paramMap.get('id');
+    this.findById();
   }
 
-  create(): void {
-    this.serviceTecnico.create(this.tecnico).subscribe(resposta => {
-      this.toast.success('Técnico cadastrado com sucesso!', 'Cadastrado');
+  findById(): void {
+    this.serviceTecnico.findById(this.tecnico.id).subscribe(resposta => {
+      resposta.perfis = [];
+      this.tecnico = resposta;
+    });
+  }
+
+  update(): void {
+    this.serviceTecnico.update(this.tecnico).subscribe(resposta => {
+      this.toast.success('Técnico atualizado com sucesso!', 'Update');
       this.router.navigate(['tecnicos']);
     }, excecao => {
       if (excecao.error.errors) {
@@ -64,5 +74,4 @@ export class TecnicoCreateComponent implements OnInit {
         && this.email.valid
         && this.senha.valid
   }
-
 }
