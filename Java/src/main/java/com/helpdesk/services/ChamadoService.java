@@ -71,7 +71,7 @@ public class ChamadoService {
 		chamado.setCliente(cliente);
 		chamado.setPrioridade(Prioridade.toEnum(chamadoDTO.getPrioridade()));
 		chamado.setStatus(Status.toEnum(chamadoDTO.getStatus()));
-		chamado.setTitulo(chamado.getTitulo());
+		chamado.setTitulo(chamadoDTO.getTitulo());
 		chamado.setObservacoes(chamadoDTO.getObservacoes());
 		
 		return chamado;
