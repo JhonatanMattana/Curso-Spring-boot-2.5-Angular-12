@@ -22,3 +22,7 @@ h1 {
 .full-width {
     width: 100%;
 }
+
+mat-icon {
+    opacity: .6;
+}
